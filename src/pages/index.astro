@@ -1,0 +1,234 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const projects = await getCollection('projects');
+const sortedProjects = projects.sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+---
+
+<BaseLayout title="🛹 滑板作品集">
+  <!-- 英雄区域 -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-avatar">🛹</div>
+      <h1 class="hero-title">你好，我是滑板爱好者</h1>
+      <p class="hero-subtitle">
+        用 DJI Action 6 记录每一次滑板之旅。<br />热爱街头文化，享受风吹过耳边的自由。
+      </p>
+      <div class="hero-links">
+        <a href="#works" class="btn">查看作品</a>
+        <a href="#contact" class="btn btn-outline">联系我</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 关于我 -->
+  <section id="about" class="section">
+    <div class="container">
+      <h2 class="section-title">关于我</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            我是一名内容创作者，热爱滑板运动。从第一次踩上滑板开始，就迷上了这项充满自由与创意的运动。
+          </p>
+          <p>
+            我用大疆 Action 6 相机记录滑板瞬间，也分享街头文化的一切。希望能通过镜头，把热爱传递给更多人。
+          </p>
+        </div>
+        <div class="about-skills">
+          <span class="tag">滑板</span>
+          <span class="tag">视频剪辑</span>
+          <span class="tag">DJI Action 6</span>
+          <span class="tag">街头摄影</span>
+          <span class="tag">内容创作</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 作品列表 -->
+  <section id="works" class="section">
+    <div class="container">
+      <h2 class="section-title">作品</h2>
+      {
+        sortedProjects.length === 0 ? (
+          <p class="empty">暂无作品，敬请期待。</p>
+        ) : (
+          <div class="project-grid">
+            {sortedProjects.map((project) => (
+              <ProjectCard
+                title={project.data.title}
+                date={project.data.date}
+                cover={project.data.cover}
+                description={project.body.slice(0, 120) + '...'}
+                slug={project.slug}
+              />
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <!-- 联系方式 -->
+  <section id="contact" class="section">
+    <div class="container">
+      <h2 class="section-title">联系我</h2>
+      <p class="contact-text">
+        如果你也喜欢滑板，或者有合作想法，欢迎联系。
+      </p>
+      <div class="contact-links">
+        <a href="mailto:your-email@example.com" class="contact-item">📧 发送邮件</a>
+        <span class="contact-item">📱 微信：your_wechat</span>
+        <span class="contact-item">📷 小红书：@你的账号</span>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding: 5rem 0 3rem;
+    text-align: center;
+  }
+
+  .hero-avatar {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    color: #a0a0a0;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+
+  .hero-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.65rem 1.75rem;
+    background: #a78bfa;
+    color: #0f0f0f;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: background 0.2s;
+  }
+
+  .btn:hover {
+    background: #c4b5fd;
+    color: #0f0f0f;
+  }
+
+  .btn-outline {
+    background: transparent;
+    border: 1px solid #333;
+    color: #f0f0f0;
+  }
+
+  .btn-outline:hover {
+    border-color: #a78bfa;
+    color: #a78bfa;
+  }
+
+  .section {
+    padding: 3rem 0;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #fff;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: #a0a0a0;
+    margin-bottom: 0.8rem;
+  }
+
+  .about-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 0.35rem 0.85rem;
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: #c4b5fd;
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .empty {
+    color: #666;
+    font-size: 0.95rem;
+  }
+
+  .contact-text {
+    color: #a0a0a0;
+    margin-bottom: 1rem;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .contact-item {
+    color: #a0a0a0;
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 640px) {
+    .hero-title {
+      font-size: 1.75rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+    }
+
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .project-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
