@@ -23,9 +23,9 @@ const formattedDate = new Date(date).toLocaleDateString('zh-CN', {
 <BaseLayout title={`${title} — 滑板作品集`}>
   <article class="project-detail">
     <div class="container">
-      <a href="/" class="back-link">&larr; 返回首页</a>
+      <a href={import.meta.env.BASE_URL} class="back-link">&larr; 返回首页</a>
       <div class="cover-image">
-        <img src={cover} alt={title} />
+        <img src={cover.startsWith('/') ? import.meta.env.BASE_URL + cover.slice(1) : cover} alt={title} />
       </div>
       <div class="meta">
         <h1 class="title">{title}</h1>
