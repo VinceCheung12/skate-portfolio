@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://your-site.vercel.app',
+  site: 'https://vincecheung12.github.io',
+  base: '/skate-portfolio/',
 });
