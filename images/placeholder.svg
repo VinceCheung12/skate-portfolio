@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <rect width="800" height="450" fill="#1a1a1a"/>
+  <text x="400" y="200" text-anchor="middle" fill="#444" font-size="60" font-family="sans-serif">🛹</text>
+  <text x="400" y="270" text-anchor="middle" fill="#555" font-size="18" font-family="sans-serif">封面图片占位</text>
+  <text x="400" y="295" text-anchor="middle" fill="#444" font-size="13" font-family="sans-serif">替换为你的图片</text>
+</svg>
